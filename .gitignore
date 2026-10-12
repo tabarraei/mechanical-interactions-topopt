@@ -11,6 +11,9 @@ env/
 
 # Generated M1 datasets
 m1_interactions/
+m2_spatial/
+results/m1_interactions_large_48x24/
+m2_spatial_large/
 *.pkl
 *.pickle
 *.npz
