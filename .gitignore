@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Generated M1 datasets
+m1_interactions/
+*.pkl
+*.pickle
+*.npz
+
+# HPC job output
+slurm-*.out
+*.log
+
+# Editor / OS
+.vscode/
+.DS_Store
+
+# Secrets
+.env
+.env.*
+
+# Generated images and animations
+*.gif
+*.png

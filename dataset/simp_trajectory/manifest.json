@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "num_samples": 2,
+    "samples_per_shard": 1000,
+    "seed": 0,
+    "width": 1.0,
+    "height": 2.0,
+    "nels": 64,
+    "penal": 3.0,
+    "rmin": 2.0,
+    "maxiter": 100,
+    "tolerance": 0.01,
+    "store_trajectory": true
+  },
+  "shards": [
+    {
+      "file": "topopt_samples_00000.pkl",
+      "num_samples": 2,
+      "start_index": 0
+    }
+  ]
+}
