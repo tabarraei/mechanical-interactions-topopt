@@ -1,0 +1,15 @@
+# Multiscale spatial operator
+
+For normalized physical coordinates r/L, L=max(width,height), lift each element input to v_j∈R^D with a shared pointwise MLP and global descriptor projection. Use a learned positive scalar kernel kθ(q,r)=softplus(MLPθ[q−r,|q−r|,q,r]); the local branch multiplies this by max(1−|q−r|/0.3,0). The discrete operator is
+
+    Kθ[v](q) = Σj kθ(q,rj) aj mj vj / max(Σj kθ(q,rj) aj mj, 1e−12).
+
+Here aj=dx*dy/L² and mj is the explicit domain mask. This is a learned coordinate-conditioned normalized integral quadrature, evaluated on8 global (4×2) and24 local (6×4) anchors spanning the physical bounding rectangle. Empty neighborhoods have zero output/occupancy. It is resolution-aware through actual coordinates, quadrature and shared parameters. Fixed latent lattices limit fine structure; mesh-independent accuracy is unproven.
+
+Node fields never masquerade as element arrays. Each nodal force is split among incident active cells with weights1/incident_count; vector totals are conserved. Zero-displacement indicators are corner-averaged only as conditioning. A separate point-node kernel branch retains actual load coordinates: Σn k(q,rn) Fn/Fscale, without area averaging; per-component supports use maximum kernel similarity over constrained nodes. Force scale remains in globals. These are learned conditioning features, not equivalent mechanical boundary discretizations or solver replacements.
+
+Coarse↔fine exchange uses separate learned coordinate kernels over occupied anchor nodes, normalized with equal occupancy weights, then a shared linear fusion. These latent sums are a finite anchor approximation, not exact physical-area quadrature of a solved field. At the current time, coarse and compact fine decoder kernels are evaluated at every native element coordinate. Decoder concatenates both results, the local lifted last-state skip, and a horizon embedding. A shared MLP returns0.1*raw_output, masked outside the design domain; there is no clipping or feasibility projection.
+
+For N elements, M=32 anchors, K history states and D width, kernel work scales as O(BKNM*d_kernel), temporal attention as O(BMK²D), decoding as O(BNM*d_kernel); nodal conditioning adds O(BMNnode*d_kernel). No N×N spatial attention or dense stiffness matrix exists. Queries are chunked64, but autograd retains graphs across chunks: chunking alone does not guarantee constant training memory. Real CPU forward HWM is measured in forward_example.json; future large-batch/backward residency remains unqualified.
+
+Coordinates use one isotropic length scale, preserving aspect ratio; dimensions and spacings also remain global descriptors. This does not imply translation/rotation equivariance. For nonrectangular domains, explicit active areas and valid nodes are required; synthetic L masks exercise masking only. There is no topology-aware geodesic kernel, and Euclidean interactions can cross a void. Actual nonrectangular mechanics, passive design regions and nonzero support values need new accepted schema/data and validation.

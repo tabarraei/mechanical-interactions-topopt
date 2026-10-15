@@ -14,6 +14,8 @@ m1_interactions/
 m2_spatial/
 results/m1_interactions_large_48x24/
 m2_spatial_large/
+m2_topology/
+m2_spectral/
 *.pkl
 *.pickle
 *.npz
@@ -33,3 +35,42 @@ slurm-*.out
 # Generated images and animations
 *.gif
 *.png
+
+# Generated M2.4 saved-operator analysis
+m2_hybrid/
+
+# M3.1 isolated trajectories and validation artifacts
+m3_1/
+
+# M3.2 isolated convergence/reliability study
+m3_2/
+
+# Source checkpoints exclude generated M3 runs and evidence bundles.
+/m3_*/generations/
+/m3_*/completion_generations/
+/m3_*/results/
+/m3_*/reports/
+/m3_*/reviews/
+/m3_*/plans/
+/m3_*/evidence/
+/m3_*/visualizations/
+/m3_*/validation_runs/
+/m3_*/validation_attempts/
+/m3_*/executions/
+/m3_*/source_snapshots/
+/m3_*/final_source_snapshots/
+/m3_*/latest_*.json
+/m3_*/protected_before.json
+/m3_*/artifact_manifest.json
+/m3_*/authorization.json
+/m3_*/authorization.lock
+# Real authority books, receipts and worker tickets are never source inputs.
+**/issued_authorizations*.json
+**/issued_approvals*.json
+**/worker_ticket*.json
+**/execution_receipt*.json
+*.npy
+*.pt
+*.pth
+*.ckpt
+*.out

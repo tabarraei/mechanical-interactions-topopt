@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:topology:m3.4.production.v1",
+  "title": "M3.4 immutable executable pilot manifest",
+  "type": "object",
+  "required": ["schema_version", "generation", "status", "source_id", "jobs", "limits", "proposed_authorization"],
+  "properties": {
+    "schema_version": {"const": "m3.4.production.v1"},
+    "generation": {"type": "string", "minLength": 1},
+    "status": {"const": "planned"},
+    "source_id": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "proposed_authorization": {"const": false},
+    "jobs": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"$ref": "#/$defs/job"}},
+    "limits": {
+      "type": "object",
+      "required": ["worker_rss_mib", "parent_rss_mib", "combined_rss_mib", "worker_timeout_seconds", "poll_seconds", "sequential_only", "max_pilot_problems", "max_elements", "max_updates"],
+      "properties": {
+        "worker_rss_mib": {"type": "number", "exclusiveMinimum": 0, "maximum": 1024},
+        "parent_rss_mib": {"type": "number", "exclusiveMinimum": 0, "maximum": 768},
+        "combined_rss_mib": {"type": "number", "exclusiveMinimum": 0, "maximum": 1792},
+        "worker_timeout_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 900},
+        "poll_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.05},
+        "sequential_only": {"const": true},
+        "max_pilot_problems": {"type": "integer", "maximum": 8},
+        "max_elements": {"type": "integer", "maximum": 4608},
+        "max_updates": {"type": "integer", "maximum": 500}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "job": {
+      "type": "object",
+      "required": ["problem_id", "spec", "spec_sha256", "family", "partition", "ood_axis", "mesh", "domain", "support", "direction", "location", "volume", "initial", "magnitude", "regime"],
+      "properties": {
+        "problem_id": {"type": "string", "pattern": "^m3_3b_[0-9a-f]{24}$"},
+        "spec": {"type": "string", "pattern": "^specs/[^/]+\\.json$"},
+        "spec_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "family": {"type": "string", "minLength": 1},
+        "partition": {"enum": ["train", "validation", "test_id", "test_ood"]},
+        "ood_axis": {"type": "string"},
+        "mesh": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 1, "maximum": 96}},
+        "domain": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "exclusiveMinimum": 0}},
+        "support": {"enum": ["left_clamp", "right_clamp", "bottom_clamp", "pin_roller", "dual_pin"]},
+        "direction": {"enum": ["horizontal", "vertical", "oblique"]},
+        "location": {"type": "number", "minimum": 0, "maximum": 1},
+        "volume": {"enum": [0.3, 0.4, 0.5, 0.6]},
+        "initial": {"enum": ["uniform", "perturbed"]},
+        "magnitude": {"type": "number", "exclusiveMinimum": 0},
+        "regime": {"enum": ["baseline", "refinement", "growth"]}
+      },
+      "additionalProperties": false
+    }
+  }
+}

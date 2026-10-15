@@ -1,0 +1,20 @@
+{
+  "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:38:13) [GCC 12.3.0]",
+  "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+  "observed_versions": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "torch": "2.14.1",
+    "matplotlib": "3.11.2",
+    "pillow": "12.3.0",
+    "pytest": "9.1.1",
+    "pypardiso": "0.4.7",
+    "ipython": "9.17.1"
+  },
+  "thread_envelope": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "16",
+    "OMP_NUM_THREADS": "16"
+  },
+  "portable_lockfile": false
+}

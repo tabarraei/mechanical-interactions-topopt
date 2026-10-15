@@ -1,0 +1,9 @@
+# Future dataset requirements
+
+Current source is exclusively accepted original12; the frozen30 proposal, all resource blockers and historical D2 receipt/admission status are unchanged. This milestone issues no execution authority, alias, crosswalk, numerical acceptance or publication.
+
+Future family data must first satisfy existing independently authorized generation, resource, restart and numerical acceptance gates. Keep immutable IDs/source bindings, mechanical-equivalence deduplication, whole-trajectory/family-aware partitioning and training-only normalization. Never count a historical alias as a second physical history. Supply accepted MBB, bridge and L-shaped examples with physical coordinates/connectivity, nodal vector loads, per-axis constraints and prescribed values, explicit active/inactive/passive design masks, quadrature/mesh spacing and load/support semantics. Distributed loads require their own verified representation. Do not infer any of these from a density picture.
+
+Before release, produce and verify the complete per-history PNG/GIF package against the accepted index. Visualization failure blocks a visualization-required release, not scientific acceptance itself. The visual gate iterates index entries; the present data adapter deliberately pins original12. Future accepted-index ingestion and protected release integration require separate reviewed code/authority rather than silently expanding that pin.
+
+Designed extensions include generalized geometry adapters and nonzero support-value channels; they are not implemented. Future research must test resolution convergence, spatial localization, unseen physical families, multistep error and independently checked candidate mechanics before any FEM-reduction claim. Synthetic mask tests and shared-weight forward shapes provide none of those scientific results.
